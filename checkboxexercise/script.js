@@ -33,8 +33,6 @@ class Checkboxes {
     this.selectedcheckboxes = [];
   }
 
-
-
   alert_max_count_violation() {
     var lastselectedbox = this.selectedcheckboxes[this.selectedcheckboxes.length - 1];
     alert('Only 3 days can be selected.' +
