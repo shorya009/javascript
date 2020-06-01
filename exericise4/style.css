@@ -1,0 +1,16 @@
+body
+	{
+		height: 100px;
+	}
+	#container
+	{
+		height: 100px;
+		border: 2px inset grey;
+		overflow: scroll;
+	}
+	#colorChildBox, #moviesChildBox, #drinksChildBox, #bikesChildBox
+	{
+		margin-left: 50px;
+		margin-top: 10px;
+		display: none;
+	}
