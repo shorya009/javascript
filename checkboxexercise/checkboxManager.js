@@ -1,4 +1,6 @@
-class checkbox {
+const maxCheckCount = 3 ;
+
+class checkboxManager {
 
   constructor(checkboxGroup, noneCheckbox, maxCheckCount) {
     this.checkboxGroup = checkboxGroup; 
@@ -6,14 +8,14 @@ class checkbox {
     this.selectedCheckboxes = []; //array to store checked boxes value
     this.maxCheckCount = maxCheckCount; //max check count variable
   }
-
-  start() {
-    this.noneCheckbox.checked = true;
+  
+  noneCheckboxFalse() {
+  this.noneCheckbox.checked = false;
   }
-
   //function to check if max count violation is happening or not for each checkbox click
-  checkboxes(currentCheckbox) {
-    this.noneCheckbox.checked = false;
+  checkMaxCountViolation(currentCheckbox) {
+  
+  this.noneCheckboxFalse();
     if (currentCheckbox.checked) {
       if (this.selectedCheckboxes.length < this.maxCheckCount) {
         this.selectedCheckboxes.push(currentCheckbox.id);
@@ -27,7 +29,7 @@ class checkbox {
   }
 //function to uncheck boxes when none is clicked
   uncheckBoxes() {
-    var checkedItems = this.checkboxGroup.querySelectorAll(':checked');
+    let checkedItems = this.checkboxGroup.querySelectorAll(':checked');
     for (var i = checkedItems.length; i--;) {
       checkedItems[i].checked = false;
     }
@@ -35,13 +37,19 @@ class checkbox {
   }
 // to alert when max count has been violated
   alertMaxCountViolation() {
-    var lastSelectedBox = this.selectedCheckboxes[this.selectedCheckboxes.length - 1];
+    let lastSelectedBox = this.selectedCheckboxes[this.selectedCheckboxes.length - 1];
     alert('Only 3 days can be selected.' +
       '\nYou have already selected ' + this.selectedCheckboxes.slice(0, -1).join(', ') + ' and ' + lastSelectedBox);
   }
 
-  call() {
-    var that = this;
+ noneCheckboxTrue() {
+    this.noneCheckbox.checked = true;
+  }
+
+  init() {
+  this.noneCheckboxTrue() ;
+  
+    let that = this;
 
     this.noneCheckbox.addEventListener('click', function() {
       if (this.checked) {
@@ -53,7 +61,7 @@ class checkbox {
     //delegating all the checks to checkboxes function
     this.checkboxGroup.addEventListener('click', function(e) {
       if (e.target.tagName == "INPUT") {
-        that.checkboxes(e.target);
+        that.checkMaxCountViolation(e.target);
       }
     });
   }
@@ -61,9 +69,8 @@ class checkbox {
 
 //whenever DOM get loaded this event runs
 document.addEventListener('DOMContentLoaded', function() {
-  var checkboxGroup = document.getElementById('checkbox-group');
-  var noneCheckbox = document.getElementById('none');
-  var checkboxes = new checkbox(checkboxGroup, noneCheckbox, 3);
-  checkboxes.start() // to check the noneCheckbox when DOM is loaded
-  checkboxes.call();// to handle checkbox and none functionality
+  let checkboxGroup = document.getElementById('container');
+  let noneCheckbox = document.getElementById('noneCheckbox');
+  let checkboxes = new checkboxManager(checkboxGroup, noneCheckbox, maxCheckCount);
+  checkboxes.init() // to check the noneCheckbox when DOM is loaded
 });
