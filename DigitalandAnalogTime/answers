@@ -73,18 +73,3 @@ console.log(entries)
 //   [orange, 17],
 //   [pear, 54]
 // ]
-
-
-another way using loops
-
-// Looping through arrays created from Object.keys
-const keys = Object.keys(fruits)
-for (const key of keys) {
-  console.log(key)
-}
-
-// Results:
-// apple
-// orange
-// pear
-    
