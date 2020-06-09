@@ -1,0 +1,90 @@
+ans 1 - differnce between var and let
+
+1) a)var uses functional scope it is accessable withing the defined function
+   b) let uses block scope , it is accesable only within its block (within curly brackets not outside it)
+   ex- 
+   for(let i = 0; i<10; i++) {
+        console.log(i) // printing values from 0 to 9
+        }
+      console.log(i) // error let variable not accessible outside its scope
+      
+ 2) a) var variable is part of window object it can be accessed using window object 
+  example - var x = 10;
+           console.log(window.x) // ans = 10
+    b) let and const both are not part of window object
+    
+   
+ ans 2 - situation where we have to use var instead of let
+ 
+ suppose I want to console.log the last value of i in this loop so I cannot use let beacuse then
+ variable i won't be availabe ouside for loop
+ 
+ for(var i = 0; i<10; i++) {
+  console.log(i)
+        }
+console.log(i) // ans 10
+
+
+ans 3 - in how many ways we can access object
+
+ 1) using .dot notation
+ 
+ const hero = {
+  name: 'Batman'
+};
+
+// Dot property accessor
+hero.name; // => 'Batman'
+
+
+2) using Square brackets
+
+const property = 'name';
+const hero = {
+  name: 'Batman'
+};
+
+// Square brackets property accessor:
+hero['name'];   // => 'Batman'
+hero[property]; // => 'Batman'
+
+3)Object destructuring
+
+const hero = {
+  name: 'Batman'
+};
+
+// Object destructuring:
+const { name } = hero;
+name; // => 'Batman'
+
+using loops
+
+const fruits = {
+  apple: 28,
+  orange: 17,
+  pear: 54,
+}
+
+const entries = Object.entries(fruits)
+console.log(entries)
+// [
+//   [apple, 28],
+//   [orange, 17],
+//   [pear, 54]
+// ]
+
+
+another way using loops
+
+// Looping through arrays created from Object.keys
+const keys = Object.keys(fruits)
+for (const key of keys) {
+  console.log(key)
+}
+
+// Results:
+// apple
+// orange
+// pear
+    
