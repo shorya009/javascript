@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <script type = "text/javascript" src = "script.js">
+  </head>
+  <body>
+    <div class="top"></div>
+
+    <div class="container">
+      <div class="heading">
+        <h2>Regestration Form</h2>
+      </div>
+      <form action="#" name="regestrationform" onsubmit="return validateForm()">
+        <div class="row">
+          <div class="col-25">
+            <label for="loginid">Login Id</label>
+          </div>
+          <div class="col-75">
+            <input
+              type="text"
+              id="loginid"
+              name="loginid"
+              placeholder="Login Id"
+            />
+            <div class="error" id="loginidErr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="email">Email</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="email" name="email" placeholder="Email" />
+            <div class="error" id="emailErr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="name">Name</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="name" name="name" placeholder="Name" />
+            <div class="error" id="nameErr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="timezone">Timezone</label>
+          </div>
+          <div class="col-75">
+            <select id="timezone" name="timezone">
+              <option value="gmt">GMT</option>
+              <option value="ist">IST</option>
+            </select>
+            <div class="error" id="timezoneErr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="aboutme">About Me</label>
+          </div>
+          <div class="col-75">
+            <textarea
+              id="aboutme"
+              name="aboutme"
+              placeholder="About Me"
+              style="height:200px"
+            ></textarea>
+            <div class="error" id="aboutmeErr"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-75">
+            <input type="checkbox" id="check" name="check" />
+            <label for="checkbox"> Receive notification of comments</label>
+            <div class="error" id="checkboxErr"></div>
+          </div>
+        </div>
+
+        <p class="para1">
+          You will be sent an email when someone posts comments to your Blog or
+          Album
+        </p>
+
+        <p class="para2">Your Password will be mailed to you</p>
+        <div class="row">
+          <div class="col-50">
+            <input type="submit" id="submit" name="submit" value="Go" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
