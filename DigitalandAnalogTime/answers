@@ -1,14 +1,29 @@
 ans 1 - differnce between var and let
 
-1) a)var uses functional scope it is accessable withing the defined function
-   b) let uses block scope , it is accesable only within its block (within curly brackets not outside it)
+1)let and var variables work the same way when used in a function block.
+      function aSampleFunction(){
+      
+let letVariable = "Hey! What's up? I am let variable.";
+var varVariable = "Hey! How are you? I am var variable.";
+
+console.log(letVariable); //Hey! What's up? I am let variable.
+console.log(varVariable); //Hey! How are you? I am var variable.
+}
+
+2) let variables cannot be re-declared while var variable can be re-declared in the same scope.
+Assume we are using strict mode
+
+2)let and var variables work the same way when defined globally but difference is let will not be 
+included in window object and var will be included
+
+3) let uses block scope , it is accesable only within its block (within curly brackets not outside it)
    ex- 
    for(let i = 0; i<10; i++) {
         console.log(i) // printing values from 0 to 9
         }
       console.log(i) // error let variable not accessible outside its scope
       
- 2) a) var variable is part of window object it can be accessed using window object 
+ 4) a) var variable is part of window object it can be accessed using window object 
   example - var x = 10;
            console.log(window.x) // ans = 10
     b) let and const both are not part of window object
@@ -60,16 +75,12 @@ name; // => 'Batman'
 
 using loops
 
-const fruits = {
-  apple: 28,
-  orange: 17,
-  pear: 54,
-}
+let nyc = {
+fullName: "New York City",
+mayor: "Bill de Blasio",
+population: 8000000
+};
 
-const entries = Object.entries(fruits)
-console.log(entries)
-// [
-//   [apple, 28],
-//   [orange, 17],
-//   [pear, 54]
-// ]
+for(let key in nyc){
+console.log(key + " : " +nyc[key]);
+}
