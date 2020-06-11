@@ -18,7 +18,7 @@ class WelcomeUser {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  let display = document.getElementById('demo')
+  let display = document.getElementById('section')
   let alert = new WelcomeUser(display)
   alert.askName()
 })
