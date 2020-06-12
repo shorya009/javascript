@@ -1,12 +1,11 @@
 <html>
 <head>
 <title>Exercise 4 -checkboxes</title>
-<script type = "text/javascript" src = "parentchildcheckbox.js">
 </head>
 <body>
 	<div id='container'>
 		<div id='colorContainer'>
-			<input type='checkbox' id='colorParentBox' onclick='hideShowDisplay("color");'>Color
+			<input type='checkbox' id='colorParentBox' data-select = "color">Color
 			<div class = 'childBox' id='colorChildBox'>
 				<input type='checkbox'>Red<br>
 				<input type='checkbox'>Green<br>
@@ -15,7 +14,7 @@
 			</div>
 		</div>
 		<div id='drinksContainer'>
-			<input type='checkbox' id='drinksParentBox' onclick='hideShowDisplay("drinks");'>Drinks
+			<input type='checkbox' id='drinksParentBox' data-select = "drinks">Drinks
 			<div class='childBox' id='drinksChildBox'>
 				<input type='checkbox'>Coke<br>
 				<input type='checkbox'>Pepsi<br>
@@ -23,14 +22,14 @@
 			</div>
 		</div>
 		<div id='moviesContainer'>
-			<input type='checkbox' id='moviesParentBox' onclick='hideShowDisplay("movies");'>Movies
+			<input type='checkbox' id='moviesParentBox' data-select = "movies">Movies
 			<div class='childBox' id='moviesChildBox'>
 				<input type='checkbox'>Dar<br>
 				<input type='checkbox'>Sir<br>
 			</div>
 		</div>
 		<div id='bikesContainer'>
-			<input type='checkbox' id='bikesParentBox' onclick='hideShowDisplay("bikes");'>Bikes
+			<input type='checkbox' id='bikesParentBox' data-select = "bikes">Bikes
 			<div class='childBox' id='bikesChildBox'>
 				<input type='checkbox'>Passion<br>
 				<input type='checkbox'>Discover<br>
