@@ -1,76 +1,103 @@
-const maxCheckCount = 3 ;
+
+const MaxCheckCount = 3;
 
 class checkboxManager {
 
-  constructor(checkboxGroup, noneCheckbox, maxCheckCount) {
-    this.checkboxGroup = checkboxGroup; 
+  constructor(checkboxGroup, noneCheckbox, MaxCheckCount) {
+    this.checkboxGroup = checkboxGroup;
     this.noneCheckbox = noneCheckbox;
-    this.selectedCheckboxes = []; //array to store checked boxes value
-    this.maxCheckCount = maxCheckCount; //max check count variable
+    this.selectedCheckboxes = [] ;//array to store checked boxes value
+    this.MaxCheckCount = MaxCheckCount ;//max check count variable
   }
-  
+
   noneCheckboxFalse() {
-  this.noneCheckbox.checked = false;
+
+    this.noneCheckbox.checked = false;
   }
+
   //function to check if max count violation is happening or not for each checkbox click
   checkMaxCountViolation(currentCheckbox) {
-  
-  this.noneCheckboxFalse();
-    if (currentCheckbox.checked) {
-      if (this.selectedCheckboxes.length < this.maxCheckCount) {
+
+    this.noneCheckboxFalse();
+
+    if (currentCheckbox.checked) 
+    {
+      if (this.selectedCheckboxes.length < this.MaxCheckCount) {
         this.selectedCheckboxes.push(currentCheckbox.id);
-      } else {
+      } 
+      else {
         currentCheckbox.checked = false;
         this.alertMaxCountViolation();
       }
-    } else {
-      this.selectedCheckboxes.splice(this.selectedCheckboxes.indexOf(currentCheckbox.id), 1);
+    } 
+    else {
+      this.selectedCheckboxes.splice(
+        this.selectedCheckboxes.indexOf(currentCheckbox.id),
+        1
+      );
     }
   }
-//function to uncheck boxes when none is clicked
+
+  //function to uncheck boxes when none is clicked
   uncheckBoxes() {
+
     let checkedItems = this.checkboxGroup.querySelectorAll(':checked');
     for (var i = checkedItems.length; i--;) {
       checkedItems[i].checked = false;
     }
     this.selectedCheckboxes = [];
   }
-// to alert when max count has been violated
+
+  // to alert when max count has been violated
   alertMaxCountViolation() {
+
     let lastSelectedBox = this.selectedCheckboxes[this.selectedCheckboxes.length - 1];
-    alert('Only 3 days can be selected.' +
-      '\nYou have already selected ' + this.selectedCheckboxes.slice(0, -1).join(', ') + ' and ' + lastSelectedBox);
+    alert(
+      `Only 3 days can be selected.
+       You have already selected ${this.selectedCheckboxes.slice(0, -1).join(', ')} 
+       and ${lastSelectedBox}`
+    );
   }
 
- noneCheckboxTrue() {
+  noneCheckboxTrue() {
+
     this.noneCheckbox.checked = true;
   }
 
-  init() {
-  this.noneCheckboxTrue() ;
-  
-    let that = this;
+  noneCheckboxEventListener() {
 
-    this.noneCheckbox.addEventListener('click', function() {
+    let that = this;
+    this.noneCheckbox.addEventListener('click', function () {
       if (this.checked) {
-        that.uncheckBoxes();
-        this.checked = true;
+        that.uncheckBoxes()
+        this.checked = true
       }
     });
+  }
+  checkboxGroupEventListener() {
 
-    //delegating all the checks to checkboxes function
-    this.checkboxGroup.addEventListener('click', function(e) {
-      if (e.target.tagName == "INPUT") {
+    let that = this;
+
+    this.checkboxGroup.addEventListener('click', function (e) {
+      if (e.target.tagName == 'INPUT') {
         that.checkMaxCountViolation(e.target);
       }
     });
   }
+
+  init() {
+
+    this.noneCheckboxTrue();
+    this.noneCheckboxEventListener();
+    this.checkboxGroupEventListener();
+  }
 }
 
 //whenever DOM get loaded this event runs
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
   let checkboxGroup = document.getElementById('container');
   let noneCheckbox = document.getElementById('noneCheckbox');
-  let checkboxes = new checkboxManager(checkboxGroup, noneCheckbox, maxCheckCount);
-  checkboxes.init() // to check the noneCheckbox when DOM is loaded
+  let checkbox = new checkboxManager(checkboxGroup, noneCheckbox, MaxCheckCount);
+  checkbox.init();
 });
