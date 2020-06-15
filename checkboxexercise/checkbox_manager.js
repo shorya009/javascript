@@ -42,7 +42,7 @@ class checkboxManager {
   uncheckBoxes() {
 
     let checkedItems = this.checkboxGroup.querySelectorAll(':checked');
-    for (var i = checkedItems.length; i--;) {
+    for (let i = checkedItems.length; i--;) {
       checkedItems[i].checked = false;
     }
     this.selectedCheckboxes = [];
