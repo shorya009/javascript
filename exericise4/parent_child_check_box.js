@@ -2,11 +2,11 @@ class ParentChildCheckBox {
     
     constructor(box) {
         this.box = box;
-        this.childBox = document.getElementById(box + 'ChildBox');
-        this.parentBox = document.getElementById(box + 'ParentBox');
+        this.childBox = document.getElementById(`${box}ChildBox`);
+        this.parentBox = document.getElementById(`${box}ParentBox`);
         this.nodes = this.childBox.childNodes;
         this.container = document.getElementById('container');
-        this.containerBox = document.getElementById(box + 'Container');
+        this.containerBox = document.getElementById(`${box}Container`);
         this.init(this.box);
     }
     
