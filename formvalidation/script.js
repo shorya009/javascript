@@ -1,146 +1,72 @@
 class Formvalidation {
+
   constructor() {
-   
-  this.loginid = document.regestrationform.loginid.value
-  this.email = document.regestrationform.email.value
-  this.fullname = document.regestrationform.fullname.value
-  this.timezone = document.regestrationform.timezone.value
-  this.aboutme = document.regestrationform.aboutme.value
-  this.checkbox = document.regestrationform.check.checked
-  this.submit = document.getElementById('submit')
-
-// Defining error variables with a default value
-    this.loginidErr = this.emailErr = this.nameErr = this.aboutmeErr = this.checkboxErr = true
+    // Defining error variable
+    this.checkError = 0;
+    this.formElements = {
+      loginid: document.regestrationform.loginid.value,
+      email: document.regestrationform.email.value,
+      fullname: document.regestrationform.fullname.value,
+      timezone: document.regestrationform.timezone.value,
+      aboutme: document.regestrationform.aboutme.value,
+      checkbox: document.regestrationform.check.checked,
+    };  
   }
-
-  printError(elemId, hintMsg) {
-    document.getElementById(elemId).innerHTML = hintMsg
+  //to check empty or null values
+  isBlank(str) {
+    return !str || /^\s*$/.test(str);
   }
-
+   //to check string length is greater than 50 or not
+  validateLength(str){
+    return str.length < 50 ? 1 : 0;
+  }
+  //to alert message
+  alertMessage(value) {
+    alert(`${value} cannot be empty`);
+    this.checkError = this.checkError + 1;
+  }
+  // to validate form
   validateForm() {
-    
-    // Validate login id
-    if (this.loginid == '') {
-      this.printError('loginidErr', 'Please enter your loginid')
-      loginid.focus()
-      return false
-    } else {
-      let regex = /^[0-9a-zA-Z{2,20}]+$/
-      if (regex.test(this.loginid) === false) {
-        this.printError('loginidErr', 'Please enter a valid login id')
-        loginid.focus()
-        return false
-      } else {
-        this.printError('loginidErr', '')
-        this.loginidErr = false
+    for (let key in this.formElements) {
+      if (this.isBlank(this.formElements[key])) {
+        this.alertMessage(key);
+      }
+      else{
+        if(key == 'aboutme'){
+           let checkLength = this.validateLength(this.formElements[key]);
+           if(checkLength == 1){
+             alert(`Length of ${key} should be more than 5`);
+             this.checkError = this.checkError +1;
+           }
+        }
       }
     }
-
-    // Validate email
-    if (this.email == '') {
-      this.printError('emailErr', 'Please enter your email address')
-      email.focus()
-      return false
-    } else {
-      // Regular expression for basic email validation
-      let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-      if (regex.test(this.email) === false) {
-        this.printError('emailErr', 'Please enter a valid email address')
-        email.focus()
-        return false
-      } else {
-        this.printError('emailErr', '')
-        this.emailErr = false
-      }
-    }
-
-    // Validate name
-    if (this.fullname == '') {
-      this.printError('nameErr', 'Please enter your name')
-      fullname.focus()
-      return false
-    } else {
-      let regex = /^[a-zA-Z{2,20}]+$/
-      if (regex.test(this.fullname) === false) {
-        this.printError('nameErr', 'Please enter a valid name')
-        fullname.focus()
-        return false
-      } else {
-        this.printError('nameErr', '')
-        this.nameErr = false
-      }
-    }
-    // Validate about me
-    if (this.aboutme == '') {
-      this.printError('aboutmeErr', 'Please enter something about yourself')
-      aboutme.focus()
-      return false
-    } else {
-      let regex = /^.{5,}$/
-      if (regex.test(this.aboutme) === false) {
-        this.printError('aboutmeErr', 'Min 50 characters are required')
-        aboutme.focus()
-        return false
-      } else {
-        this.printError('aboutmeErr', '')
-        this.aboutmeErr = false
-      }
-    }
-
-    if (!this.checkbox) {
-      this.printError('checkboxErr', 'Please check the notification box')
-      return false
-    } else {
-      this.printError('checkboxErr', '')
-      this.checkboxErr = false
-    }
-
     // Prevent the form from being submitted if there are any errors
-    if (
-      (this.loginidErr ||
-        this.emailErr ||
-        this.nameErr ||
-        this.aboutmeErr ||
-        this.checkboxErr) == true
-    ) {
-      return false
+    if (this.checkError > 0) {
+      return false;
     } else {
+      // to prevent double form submission
+      document.regestrationform.submit.disabled = true;
       // Creating a string from input data for preview
-      this.submit.disabled = true
-
-      let dataPreview =
-        "You've entered the following details: \n" +
-        'Login Id: ' +
-        this.loginid +
-        '\n' +
-        'Email Address: ' +
-        this.email +
-        '\n' +
-        'Name: ' +
-        this.fullname +
-        '\n' +
-        'Timezone: ' +
-        this.timezone +
-        '\n' +
-        'About Me: ' +
-        this.aboutme +
-        '\n'
-
+      let dataPreview = `You've entered the following details:
+         Login Id: ${this.formElements['loginid']},
+         Email Address: ${this.formElements['email']}, 
+         Name: ${this.formElements['fullname']},
+         Timezone: ${this.formElements['timezone']},
+        About Me: ${this.formElements['aboutme']}`;
       // Display input data in a dialog box before submitting the form
-      alert(dataPreview)
-
-      return 1
+      alert(dataPreview);
+      return 1;
     }
   }
 }
-
 regestrationform.addEventListener('submit', function (e) {
-  e.preventDefault()
-  
-  let validate = new Formvalidation()
-  let submitForm = validate.validateForm()
-
+  e.preventDefault();
+  let validate = new Formvalidation();
+  let submitForm = validate.validateForm();
   if (submitForm) {
     alert('successful submission')
+    document.regestrationform.reset();
+    document.regestrationform.submit.disabled = false;
   }
 })
