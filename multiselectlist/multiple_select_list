@@ -1,0 +1,52 @@
+class MultipleSelectList {
+    constructor() {
+        this.options = document.querySelectorAll('[data-choice]');
+        this.init(this.options);
+    }
+
+    getSourceTarget() {
+        return {
+            sourceFirstBox: document.getElementById('boxOne'),
+            lengthFirstBox: document.getElementById('boxOne').options.length,
+            targetSecondBox: document.getElementById('boxSecond'),
+            sourceSecondBox: document.getElementById('boxSecond'),
+            targetFirstBox: document.getElementById('boxOne'),
+            lengthSecondBox: document.getElementById('boxSecond').options.length
+        };
+    }
+
+    addRemove(length, source, target) {
+        let i = length;
+        while (i--) {
+            if (source.options[i].selected) {
+                target.appendChild(source.options[i]);
+            }
+        }
+    }
+
+    init(addRemoveOption) {
+        let that = this;
+        addRemoveOption.forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                if (element.dataset.choice == 'add') {
+                    const {
+                        lengthFirstBox,
+                        sourceFirstBox,
+                        targetSecondBox
+                    } = that.getSourceTarget();
+                    that.addRemove(lengthFirstBox, sourceFirstBox, targetSecondBox);
+                } else if (element.dataset.choice == 'remove') {
+                    const {
+                        lengthSecondBox,
+                        sourceSecondBox,
+                        targetFirstBox
+                    } = that.getSourceTarget();
+                    that.addRemove(lengthSecondBox, sourceSecondBox, targetFirstBox);
+                }
+            });
+        });
+    }
+}
+(function() {
+    new MultipleSelectList();
+})();
