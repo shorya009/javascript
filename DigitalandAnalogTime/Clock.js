@@ -1,11 +1,14 @@
 class Clock {
-    
+
     constructor() {
         if (this.constructor == Clock) {
             throw new Error("Abstract classes can't be instantiated.");
         }
+    }
+    
+    getTime() {
         let time = new Date();
-        this.timeObject = {
+        return {
             hours: time.getHours() > 12 ? time.getHours() - 12 : time.getHours(),
             minutes: time.getMinutes(),
             seconds: time.getSeconds(),
@@ -15,49 +18,53 @@ class Clock {
 }
 
 class DigitalClock extends Clock {
-    
+
     getDigitalTime() {
-        let currentTime =
-            this.timeObject.hours +
-            ':' +
-            this.timeObject.minutes +
-            ':' +
-            this.timeObject.seconds +
-            ' ' +
-            this.timeObject.amPm;
+        const {
+            hours,
+            minutes,
+            seconds,
+            amPm
+        } = this.getTime();
+        let currentTime = `${hours}:${minutes}:${seconds} ${amPm}`;
         alert(currentTime);
     }
 }
 class AnalogClock extends Clock {
-    
-    getdegree() {
+
+    getDegree() {
+        const {
+            hours,
+            minutes,
+            seconds
+        } = this.getTime();
         let formatedTime = {
-            hourDegree: this.timeObject.hours * 30,
-            minuteDegree: this.timeObject.minutes * 6,
-            secondDegree: this.timeObject.seconds * 6,
+            hourDegree: hours * 30,
+            minuteDegree: minutes * 6,
+            secondDegree: seconds * 6,
         };
-        
+
         return formatedTime;
     }
     getAnalogTime() {
-        
-        let degree = this.getdegree();
+
+        let degree = this.getDegree();
         alert(` Hour Hand at ${degree.hourDegree}deg
  Minute Hand at ${degree.minuteDegree}deg
  Second Hand at ${degree.secondDegree}deg `);
     }
 }
 
-(function () {
+(function() {
     let displayClockButtons = document.querySelectorAll('[data-clock]');
-    
-    displayClockButtons.forEach(function (element) {
-        element.addEventListener('click', function (e) {
+    let digitalTime = new DigitalClock();
+    let analogTime = new AnalogClock();
+
+    displayClockButtons.forEach(function(element) {
+        element.addEventListener('click', function(e) {
             if (element.dataset.clock == 'digital') {
-                let digitalTime = new DigitalClock();
                 digitalTime.getDigitalTime();
             } else if (element.dataset.clock == 'analog') {
-                let analogTime = new AnalogClock();
                 analogTime.getAnalogTime();
             }
         });
