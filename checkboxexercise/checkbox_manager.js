@@ -1,5 +1,4 @@
 const MaxCheckCount = 3;
-
 class CheckboxManager {
 
     constructor(checkboxGroup, noneCheckbox, maxCheckCount) {
