@@ -1,25 +1,18 @@
 const MaxCheckCount = 3;
 
-class checkboxManager {
-    
-    constructor(checkboxGroup, noneCheckbox, MaxCheckCount) {
+class CheckboxManager {
+
+    constructor(checkboxGroup, noneCheckbox, maxCheckCount) {
         this.checkboxGroup = checkboxGroup;
         this.noneCheckbox = noneCheckbox;
         this.selectedCheckboxes = []; //array to store checked boxes value
-        this.MaxCheckCount = MaxCheckCount; //max check count variable
+        this.maxCheckCount = maxCheckCount; //max check count variable
     }
-    
-    noneCheckboxFalse() {
-      
-        this.noneCheckbox.checked = false;
-    }
-    
     //function to check if max count violation is happening or not for each checkbox click
     checkMaxCountViolation(currentCheckbox) {
-      
-        this.noneCheckboxFalse();
+        this.setNoneCheckbox(false);
         if (currentCheckbox.checked) {
-            if (this.selectedCheckboxes.length < this.MaxCheckCount) {
+            if (this.selectedCheckboxes.length < this.maxCheckCount) {
                 this.selectedCheckboxes.push(currentCheckbox.id);
             } else {
                 currentCheckbox.checked = false;
@@ -32,20 +25,16 @@ class checkboxManager {
             );
         }
     }
-    
     //function to uncheck boxes when none is clicked
     uncheckBoxes() {
-      
         let checkedItems = this.checkboxGroup.querySelectorAll(':checked');
         for (let i = checkedItems.length; i--;) {
             checkedItems[i].checked = false;
         }
         this.selectedCheckboxes = [];
     }
-    
     // to alert when max count has been violated
     alertMaxCountViolation() {
-      
         let lastSelectedBox = this.selectedCheckboxes[this.selectedCheckboxes.length - 1];
         alert(
             `Only 3 days can be selected.
@@ -53,46 +42,40 @@ class checkboxManager {
        and ${lastSelectedBox}`
         );
     }
-    
-    noneCheckboxTrue() {
-      
-        this.noneCheckbox.checked = true;
+
+    setNoneCheckbox(value) {
+        this.noneCheckbox.checked = value;
     }
-    
+
     noneCheckboxEventListener() {
-      
         let that = this;
-        this.noneCheckbox.addEventListener('click', function () {
+        this.noneCheckbox.addEventListener('click', function() {
             if (this.checked) {
                 that.uncheckBoxes()
                 this.checked = true
             }
         });
     }
-    
+
     checkboxGroupEventListener() {
-      
         let that = this;
-        this.checkboxGroup.addEventListener('click', function (e) {
+        this.checkboxGroup.addEventListener('click', function(e) {
             if (e.target.tagName == 'INPUT') {
                 that.checkMaxCountViolation(e.target);
             }
         });
     }
-    
+
     init() {
-      
-        this.noneCheckboxTrue();
+        this.setNoneCheckbox(true);
         this.noneCheckboxEventListener();
         this.checkboxGroupEventListener();
     }
 }
-
 //whenever DOM get loaded this event runs
-document.addEventListener('DOMContentLoaded', function () {
-  
+document.addEventListener('DOMContentLoaded', function() {
     let checkboxGroup = document.getElementById('container');
     let noneCheckbox = document.getElementById('noneCheckbox');
-    let checkbox = new checkboxManager(checkboxGroup, noneCheckbox, MaxCheckCount);
+    let checkbox = new CheckboxManager(checkboxGroup, noneCheckbox, MaxCheckCount);
     checkbox.init();
 });
