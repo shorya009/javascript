@@ -8,7 +8,7 @@ const error = {
 class Form {
 
     constructor() {
-        this.formElements = document.querySelectorAll('[data-formfield]');
+        this.formElements = document.querySelectorAll('[data-field]');
     }
 
     addEventListner() {
@@ -21,15 +21,15 @@ class Form {
 
     addSubmitListner() {
         let that = this;
-        that.formElements.forEach(function(field) {
-            if (field.dataset.formfield == 'aboutme') {
-                that.validateLength(field);
-            } else if (field.dataset.formfield == 'checkbox') {
-                if (!field.checked) {
-                    alert(`${field.name} ${error['emptyField']}`);
+        that.formElements.forEach(function(e) {
+            if (e.dataset.field == 'aboutme') {
+                that.validateLength(e);
+            } else if (e.dataset.field == 'checkbox') {
+                if (!e.checked) {
+                    alert(`${e.name} ${error['emptyField']}`);
                 }
             } else {
-                that.validateEmpty(field);
+                that.validateEmpty(e);
             }
         });
     }
