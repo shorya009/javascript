@@ -8,7 +8,7 @@ const error = {
 class Form {
 
     constructor() {
-        this.formElements = document.querySelectorAll('[data-field]');
+        this.formElements = document.querySelectorAll('[data-formfield]');
     }
 
     addEventListner() {
@@ -22,9 +22,9 @@ class Form {
     addSubmitListner() {
         let that = this;
         that.formElements.forEach(function(field) {
-            if (field.dataset.field == 'aboutme') {
+            if (field.dataset.formfield == 'aboutme') {
                 that.validateLength(field);
-            } else if (field.dataset.field == 'checkbox') {
+            } else if (field.dataset.formfield == 'checkbox') {
                 if (!field.checked) {
                     alert(`${field.name} ${error['emptyField']}`);
                 }
