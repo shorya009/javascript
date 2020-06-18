@@ -1,4 +1,4 @@
-const minLength = 5;
+const minLength = 50;
 
 const error = {
     emptyField: 'is empty',
@@ -39,7 +39,7 @@ class Form {
     }
     //to check string length is greater than 50 or not
     validateLength(field) {
-        return field.value.trim().length < 5 ? alert(`${field.name} ${error['minCharacters']}`) : true;
+        return field.value.trim().length < minLength ? alert(`${field.name} ${error['minCharacters']}`) : true;
     }
 
     init() {
